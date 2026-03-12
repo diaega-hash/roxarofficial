@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roxar</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:'Oswald',sans-serif;
+background:#0a0a0a;
+color:white;
+}
+
+nav{
+position:fixed;
+width:100%;
+background:#000;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px 40px;
+z-index:1000;
+border-bottom:1px solid #222;
+}
+
+nav img{height:40px}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:24px;
+font-size:14px;
+letter-spacing:2px;
+}
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(#000,#0a0a0a);
+}
+
+.hero h1{
+font-size:72px;
+letter-spacing:6px;
+}
+
+.hero p{
+margin-top:16px;
+opacity:.7;
+}
+
+.hero button{
+margin-top:30px;
+padding:14px 32px;
+background:white;
+border:none;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+.section{
+padding:120px 40px;
+max-width:1200px;
+margin:auto;
+}
+
+.section h2{
+margin-bottom:40px;
+letter-spacing:4px;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+}
+
+.product{
+background:#111;
+border:1px solid #222;
+cursor:pointer;
+transition:.3s;
+}
+
+.product:hover{
+transform:translateY(-6px);
+border-color:#555;
+}
+
+.product img{
+width:100%;
+height:260px;
+object-fit:cover;
+}
+
+.product h3{
+padding:16px;
+font-size:16px;
+letter-spacing:1px;
+}
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.9);
+display:none;
+justify-content:center;
+align-items:center;
+padding:40px;
+}
+
+.modal-content{
+background:#111;
+padding:30px;
+max-width:900px;
+width:100%;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+}
+
+.modal img{width:100%}
+
+.close{
+position:absolute;
+top:30px;
+right:40px;
+font-size:30px;
+cursor:pointer;
+}
+
+.instagram{
+text-align:center;
+}
+
+.instagram a{
+display:inline-block;
+margin-top:20px;
+padding:14px 28px;
+border:1px solid white;
+text-decoration:none;
+color:white;
+letter-spacing:2px;
+}
+
+footer{
+text-align:center;
+padding:40px;
+border-top:1px solid #222;
+margin-top:80px;
+opacity:.6;
+}
+
+@media(max-width:700px){
+
+.modal-content{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<img src="Roxar logo.png" alt="Roxar logo">
+<div>
+<a href="#home">HOME</a>
+<a href="#products">PRODUCTS</a>
+<a href="#instagram">INSTAGRAM</a>
+</div>
+</nav>
+
+<section class="hero" id="home">
+<h1>ROXAR</h1>
+<p>Dark Streetwear</p>
+<button onclick="scrollToProducts()">VIEW PRODUCTS</button>
+</section>
+
+<section class="section" id="products">
+<h2>PRODUCTS</h2>
+
+<div class="products">
+
+<div class="product" onclick="openProduct('ROXAR DROP 01_01 [Front].png', '01')">
+<img src="ROXAR DROP 01_01 [Front].png">
+<h3>ROXAR DROP 01/01 [Front]</h3>
+</div>
+<div class="product" onclick="openProduct('ROXAR DROP 01_01 [Back].png', '01')">
+<img src="ROXAR DROP 01_01 [Back].png">
+<h3>ROXAR DROP 01/01 [Back]</h3>
+</div>
+
+<div class="product" onclick="openProduct('ROXAR DROP 01_02 [Front].png','02')">
+<img src="ROXAR DROP 01_02 [Front].png">
+<h3>ROXAR DROP 01/02 [Front]</h3>
+</div>
+<div class="product" onclick="openProduct('ROXAR DROP 01_02 [Back].png','02')">
+<img src="ROXAR DROP 01_02 [Back].png">
+<h3>ROXAR DROP 01/02 [Back]</h3>
+</div>
+
+</div>
+</section>
+
+<section class="section instagram" id="instagram">
+<h2>FOLLOW ROXAR</h2>
+<a href="https://www.instagram.com/roxarofficial/" target="_blank">INSTAGRAM</a>
+</section>
+
+<footer>
+ROXAR © 2026
+</footer>
+
+
+<div class="modal" id="modal">
+<div class="close" onclick="closeModal()">✕</div>
+<div class="modal-content">
+<img id="modalImg">
+<div>
+<h2 id="modalTitle"></h2>
+<p id="modalDesc"></p>
+<br>
+<a href="https://www.instagram.com/roxarofficial/" target="_blank">Order via Instagram</a>
+<button onclick="closeModal()">X</button>
+</div>
+</div>
+</div>
+
+<script>
+
+function scrollToProducts(){
+
+document.getElementById('products').scrollIntoView({behavior:'smooth'})
+
+}
+
+function openProduct(img,title,desc){
+
+const modal=document.getElementById('modal')
+
+document.getElementById('modalImg').src=img
+
+document.getElementById('modalTitle').innerText=title
+
+document.getElementById('modalDesc').innerText=desc
+
+modal.style.display='flex'
+
+}
+
+function closeModal(){
+
+modal.style.display='none'
+
+}
+
+</script>
+
+</body>
+</html>
